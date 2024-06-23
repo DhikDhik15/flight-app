@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [TransactionController::class,'index'])->name('dashboard');
+    Route::get('/dashboard', [TransactionController::class,'index'])->name('dashboard');
     Route::get('/flights', [FlightController::class, 'search'])->name('flights.search');
     Route::resource('bookings', BookingController::class);
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');

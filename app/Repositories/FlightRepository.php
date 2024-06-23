@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Flights;
 use App\Models\Transactions;
+use Illuminate\Support\Facades\Auth;
 
 class FlightRepository
 {
@@ -16,7 +17,9 @@ class FlightRepository
 
     public function transactions()
     {
-        $transaction =  Transactions::with(['bookings','bookings.flight'])->orderBy('id','DESC');
+        $transaction =  Transactions::with(['bookings','bookings.flight'])->whereHas('bookings',function($user){
+            $user->where('user_id',Auth::id());
+        })->orderBy('id','DESC');
         return $transaction->get();
     }
 }
